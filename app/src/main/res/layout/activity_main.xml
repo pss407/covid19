@@ -52,12 +52,12 @@
 
             <TextView
                 android:id="@+id/decide_interval"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:textColor="@color/gray" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -83,14 +83,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textColor="@color/gray"/>
 
             <TextView
                 android:id="@+id/exam_interval"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -122,12 +124,12 @@
 
             <TextView
                 android:id="@+id/clear_interval"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:textColor="@color/gray" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -158,12 +160,12 @@
 
             <TextView
                 android:id="@+id/death_interval"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:textColor="@color/gray" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                android:textSize="13sp" />
 
         </LinearLayout>
 

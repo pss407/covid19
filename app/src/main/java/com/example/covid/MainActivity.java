@@ -1,9 +1,9 @@
 package com.example.covid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,10 +108,55 @@ public class MainActivity extends AppCompatActivity {
         int clear_inter = Integer.parseInt(today.clearCnt)-Integer.parseInt(yesterday.clearCnt);
         int death_inter = Integer.parseInt(today.deathCnt)-Integer.parseInt(yesterday.deathCnt);
 
-        println(dec_inter, decideInterval);
-        println(exam_inter, examInterval);
-        println(clear_inter, clearInterval);
-        println(death_inter, deathInterval);
+        int blue = ContextCompat.getColor(getApplicationContext(), R.color.blue);
+        int red = ContextCompat.getColor(getApplicationContext(), R.color.red);
+
+        if(dec_inter<0) {
+            decideInterval.setTextColor(blue);
+            println(-dec_inter, decideInterval);
+            decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+        }
+
+        else {
+            decideInterval.setTextColor(red);
+            println(dec_inter, decideInterval);
+            decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+        }
+
+        if(exam_inter<0) {
+            examInterval.setTextColor(blue);
+            println(-exam_inter, examInterval);
+            examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+        }
+
+        else {
+            examInterval.setTextColor(red);
+            println(exam_inter, examInterval);
+            examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+        }
+
+        if(clear_inter<0) {
+            clearInterval.setTextColor(blue);
+            println(-clear_inter, clearInterval);
+            clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+        }
+
+        else {
+            clearInterval.setTextColor(red);
+            println(exam_inter, clearInterval);
+            clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+        }
+
+        if(death_inter==0) {
+            deathInterval.setTextColor(red);
+            println(death_inter, deathInterval);
+        }
+
+        else if(death_inter>0) {
+            deathInterval.setTextColor(red);
+            println(death_inter, deathInterval);
+            deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+        }
     }
 
     public void println(Object data, TextView textView) {
