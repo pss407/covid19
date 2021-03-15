@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar calendar = Calendar.getInstance(); // 오늘날짜
         String today = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+        calendar.add(Calendar.DATE, -2);  // 오늘 날짜에서 하루를 뺌.
         String yesterday = sdf.format(calendar.getTime());
         String url = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?ServiceKey=2iybDyV%2FLv6DuHv4r0r8nM%2FqLiPheezoPVCGS9vHYtnUB%2BFU4jAWK6MRC05HQSo1ac%2FfKCBl6hV%2FZ6%2FU7ypIjA%3D%3D&pageNo=1&numOfRows=10&startCreateDt="+yesterday+"&endCreateDt="+today;
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         else {
             clearInterval.setTextColor(red);
-            println(exam_inter, clearInterval);
+            println(clear_inter, clearInterval);
             clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
         }
 

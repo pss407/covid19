@@ -17,6 +17,16 @@
         android:textColor="#707070"
         android:textSize="35sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="환자 현황(코로나 현황은 10시에 업데이트 됩니다.)"
+        android:textSize="10sp"
+        android:textColor="@color/gray" />
+
     <LinearLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
