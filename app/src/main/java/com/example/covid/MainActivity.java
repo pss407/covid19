@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView decideView;
     TextView clearView;
     TextView examView;
+    TextView dateView;
     TextView decideInterval;
     TextView deathInterval;
     TextView clearInterval;
@@ -44,9 +48,21 @@ public class MainActivity extends AppCompatActivity {
         examInterval = (TextView) findViewById(R.id.exam_interval);
         clearInterval = (TextView) findViewById(R.id.clear_interval);
         deathInterval = (TextView) findViewById(R.id.death_interval);
+        dateView = (TextView) findViewById(R.id.date);
 
         if(AppHelper.requestQueue == null)
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+
+        Button refreshBtn=(Button)findViewById(R.id.renew_btn);
+        refreshBtn.setBackgroundResource(R.drawable.ic_refresh);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("te", "refresh");
+                sendRequest();
+            }
+        });
     }
 
     @Override
@@ -102,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         println(today.examCnt, examView);
         println(today.clearCnt, clearView);
         println(today.deathCnt, deathView);
+        println("기준일 : "+today.stateDt, dateView);
 
         int dec_inter = Integer.parseInt(today.decideCnt)-Integer.parseInt(yesterday.decideCnt);
         int exam_inter = Integer.parseInt(today.examCnt)-Integer.parseInt(yesterday.examCnt);
