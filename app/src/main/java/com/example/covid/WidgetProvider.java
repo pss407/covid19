@@ -1,16 +1,15 @@
 package com.example.covid;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,58 +25,35 @@ import java.util.Map;
 
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 
-public class MainActivity extends AppCompatActivity {
-    TextView deathView;
-    TextView decideView;
-    TextView clearView;
-    TextView examView;
-    TextView dateView;
-    TextView decideInterval;
-    TextView deathInterval;
-    TextView clearInterval;
-    TextView examInterval;
+public class WidgetProvider extends AppWidgetProvider {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        deathView = (TextView) findViewById(R.id.death);
-        decideView = (TextView) findViewById(R.id.decide);
-        clearView = (TextView) findViewById(R.id.clear);
-        examView = (TextView) findViewById(R.id.exam);
-        decideInterval = (TextView) findViewById(R.id.decide_interval);
-        examInterval = (TextView) findViewById(R.id.exam_interval);
-        clearInterval = (TextView) findViewById(R.id.clear_interval);
-        deathInterval = (TextView) findViewById(R.id.death_interval);
-        dateView = (TextView) findViewById(R.id.date);
-
-        if(AppHelper.requestQueue == null)
-            AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        Button refreshBtn=(Button)findViewById(R.id.renew_btn);
-        refreshBtn.setBackgroundResource(R.drawable.ic_refresh);
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("te", "refresh");
-                sendRequest();
-            }
-        });
-
+    public void updateAppWidget(Context context, int appWidgetId) {
+        sendRequest(context, appWidgetId);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        sendRequest();
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        Intent widgetIntent = new Intent(this, WidgetProvider.class);
-        widgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        this.sendBroadcast(widgetIntent);
+        for(int appWidgetId : appWidgetIds)
+            updateAppWidget(context, appWidgetId);
     }
 
-    public void sendRequest() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName myWidget = new ComponentName(context.getPackageName(), WidgetProvider.class.getName());
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(myWidget);
+        String action = intent.getAction(); //업데이트 액션이 들어오면
+        if(action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE))
+        {
+            this.onUpdate(context, AppWidgetManager.getInstance(context), widgetIds);
+        }
+    }
+
+    public void sendRequest(Context context, int appWidgetId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar calendar = Calendar.getInstance(); // 오늘날짜
         String today = sdf.format(calendar.getTime());
@@ -85,19 +61,22 @@ public class MainActivity extends AppCompatActivity {
         String yesterday = sdf.format(calendar.getTime());
         String url = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?ServiceKey=2iybDyV%2FLv6DuHv4r0r8nM%2FqLiPheezoPVCGS9vHYtnUB%2BFU4jAWK6MRC05HQSo1ac%2FfKCBl6hV%2FZ6%2FU7ypIjA%3D%3D&pageNo=1&numOfRows=10&startCreateDt="+yesterday+"&endCreateDt="+today;
 
+        if(AppHelper.requestQueue == null)
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 url,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        processResponse(response);
+                        processResponse(context, response, appWidgetId);
                     }
                 },
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT);
+                        Toast.makeText(context.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT);
                     }
                 }
         ) {
@@ -113,40 +92,40 @@ public class MainActivity extends AppCompatActivity {
         AppHelper.requestQueue.add(request);
     }
 
-    public void processResponse(String response) {
+    public void processResponse(Context context, String response, int appWidgetId) {
         XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
         Gson gson = new Gson();
         CovidResponse covidList = gson.fromJson(xmlToJson.toJson().toString(), CovidResponse.class);
         Item today = covidList.response.body.items.item.get(0);
         Item yesterday = covidList.response.body.items.item.get(1);
 
-        println(today.decideCnt, decideView);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+        views.setTextViewText(R.id.widget1_1, today.decideCnt);
+        /*
         println(today.examCnt, examView);
         println(today.clearCnt, clearView);
         println(today.deathCnt, deathView);
-        println("기준일 : "+today.stateDt, dateView);
+        println("기준일 : "+today.stateDt, dateView);*/
 
         int dec_inter = Integer.parseInt(today.decideCnt)-Integer.parseInt(yesterday.decideCnt);
         int exam_inter = Integer.parseInt(today.examCnt)-Integer.parseInt(yesterday.examCnt);
         int clear_inter = Integer.parseInt(today.clearCnt)-Integer.parseInt(yesterday.clearCnt);
         int death_inter = Integer.parseInt(today.deathCnt)-Integer.parseInt(yesterday.deathCnt);
 
-        int blue = ContextCompat.getColor(getApplicationContext(), R.color.blue);
-        int red = ContextCompat.getColor(getApplicationContext(), R.color.red);
+        int blue = ContextCompat.getColor(context.getApplicationContext(), R.color.blue);
+        int red = ContextCompat.getColor(context.getApplicationContext(), R.color.red);
 
         if(dec_inter<0) {
-            decideInterval.setTextColor(blue);
-            println(-dec_inter, decideInterval);
-            decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+            views.setTextColor(R.id.widget1_2, blue);
+            views.setTextViewText(R.id.widget1_2, ""+(-dec_inter));
         }
 
         else {
-            decideInterval.setTextColor(red);
-            println(dec_inter, decideInterval);
-            decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+            views.setTextColor(R.id.widget1_2, red);
+            views.setTextViewText(R.id.widget1_2, Integer.toString(dec_inter));
         }
 
-        if(exam_inter<0) {
+        /*if(exam_inter<0) {
             examInterval.setTextColor(blue);
             println(-exam_inter, examInterval);
             examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
@@ -179,10 +158,8 @@ public class MainActivity extends AppCompatActivity {
             deathInterval.setTextColor(red);
             println(death_inter, deathInterval);
             deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
-        }
-    }
+        }*/
 
-    public void println(Object data, TextView textView) {
-        textView.setText(data.toString());
+        AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, views);
     }
 }
