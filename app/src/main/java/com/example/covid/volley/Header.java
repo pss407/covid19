@@ -1,4 +1,4 @@
-package com.example.covid;
+package com.example.covid.volley;
 
 public class Header {
     String resultCode;

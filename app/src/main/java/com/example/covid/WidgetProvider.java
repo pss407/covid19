@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -16,6 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.covid.volley.AppHelper;
+import com.example.covid.volley.CovidResponse;
+import com.example.covid.volley.Item;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
@@ -92,25 +94,25 @@ public class WidgetProvider extends AppWidgetProvider {
         AppHelper.requestQueue.add(request);
     }
 
-    public void processResponse(Context context, String response, int appWidgetId) {
-        XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
+    public void processResponse(Context context, String res, int appWidgetId) {
+        XmlToJson xmlToJson = new XmlToJson.Builder(res).build();
         Gson gson = new Gson();
         CovidResponse covidList = gson.fromJson(xmlToJson.toJson().toString(), CovidResponse.class);
-        Item today = covidList.response.body.items.item.get(0);
-        Item yesterday = covidList.response.body.items.item.get(1);
+        Item today = covidList.getResponse().getBody().getItems().getItem().get(0);
+        Item yesterday = covidList.getResponse().getBody().getItems().getItem().get(1);
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        views.setTextViewText(R.id.widget1_1, today.decideCnt);
+        views.setTextViewText(R.id.widget1_1, today.getDecideCnt());
         /*
         println(today.examCnt, examView);
         println(today.clearCnt, clearView);
         println(today.deathCnt, deathView);
         println("기준일 : "+today.stateDt, dateView);*/
 
-        int dec_inter = Integer.parseInt(today.decideCnt)-Integer.parseInt(yesterday.decideCnt);
-        int exam_inter = Integer.parseInt(today.examCnt)-Integer.parseInt(yesterday.examCnt);
-        int clear_inter = Integer.parseInt(today.clearCnt)-Integer.parseInt(yesterday.clearCnt);
-        int death_inter = Integer.parseInt(today.deathCnt)-Integer.parseInt(yesterday.deathCnt);
+        int dec_inter = Integer.parseInt(today.getDecideCnt())-Integer.parseInt(yesterday.getDecideCnt());
+        int exam_inter = Integer.parseInt(today.getExamCnt())-Integer.parseInt(yesterday.getExamCnt());
+        int clear_inter = Integer.parseInt(today.getClearCnt())-Integer.parseInt(yesterday.getClearCnt());
+        int death_inter = Integer.parseInt(today.getDeathCnt())-Integer.parseInt(yesterday.getDeathCnt());
 
         int blue = ContextCompat.getColor(context.getApplicationContext(), R.color.blue);
         int red = ContextCompat.getColor(context.getApplicationContext(), R.color.red);

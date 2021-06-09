@@ -12,19 +12,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
+import com.example.covid.retrofit.DTO;
+import com.example.covid.retrofit.RetrofitClient;
+import com.example.covid.retrofit.ServiceAPI;
+import com.example.covid.volley.AppHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
-import fr.arnaudguyon.xmltojsonlib.XmlToJson;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
     TextView deathView;
@@ -36,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     TextView deathInterval;
     TextView clearInterval;
     TextView examInterval;
+    ServiceAPI service;
+    String serviceKey = "2iybDyV/Lv6DuHv4r0r8nM/qLiPheezoPVCGS9vHYtnUB+FU4jAWK6MRC05HQSo1ac/fKCBl6hV/Z6/U7ypIjA==";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         clearInterval = (TextView) findViewById(R.id.clear_interval);
         deathInterval = (TextView) findViewById(R.id.death_interval);
         dateView = (TextView) findViewById(R.id.date);
+        service = RetrofitClient.getClient().create(ServiceAPI.class);
 
         if(AppHelper.requestQueue == null)
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 sendRequest();
             }
         });
-
     }
 
     @Override
@@ -77,7 +78,93 @@ public class MainActivity extends AppCompatActivity {
         this.sendBroadcast(widgetIntent);
     }
 
+    /*--------retrofit 이용한 통신 부분----------*/
     public void sendRequest() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance(); // 오늘날짜
+        String today = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DATE, -2);  // 오늘 날짜에서 하루를 뺌.
+        String yesterday = sdf.format(calendar.getTime());
+
+        HashMap<String, String> query = new HashMap<>();
+        query.put("serviceKey", serviceKey);
+        query.put("pageNo", "1");
+        query.put("numOfRows", "10");
+        query.put("startCreateDt", yesterday);
+        query.put("endCreateDt", today);
+
+        service.response(query).enqueue(new Callback<DTO>() {
+            @Override
+            public void onResponse(Call<DTO> call, retrofit2.Response<DTO> response) {
+                DTO res = response.body();
+                DTO.Item today = res.body.items.get(0);
+                DTO.Item yesterday = res.body.items.get(1);
+
+                println(today.decideCnt, decideView);
+                println(today.examCnt, examView);
+                println(today.clearCnt, clearView);
+                println(today.deathCnt, deathView);
+                println("기준일 : " + today.stateDt, dateView);
+
+                int dec_inter = Integer.parseInt(today.decideCnt) - Integer.parseInt(yesterday.decideCnt);
+                int exam_inter = Integer.parseInt(today.examCnt) - Integer.parseInt(yesterday.examCnt);
+                int clear_inter = Integer.parseInt(today.clearCnt) - Integer.parseInt(yesterday.clearCnt);
+                int death_inter = Integer.parseInt(today.deathCnt) - Integer.parseInt(yesterday.deathCnt);
+
+                int blue = ContextCompat.getColor(getApplicationContext(), R.color.blue);
+                int red = ContextCompat.getColor(getApplicationContext(), R.color.red);
+
+                if (dec_inter < 0) {
+                    decideInterval.setTextColor(blue);
+                    println(-dec_inter, decideInterval);
+                    decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+                } else {
+                    decideInterval.setTextColor(red);
+                    println(dec_inter, decideInterval);
+                    decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+                }
+
+                if (exam_inter < 0) {
+                    examInterval.setTextColor(blue);
+                    println(-exam_inter, examInterval);
+                    examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+                } else {
+                    examInterval.setTextColor(red);
+                    println(exam_inter, examInterval);
+                    examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+                }
+
+                if (clear_inter < 0) {
+                    clearInterval.setTextColor(blue);
+                    println(-clear_inter, clearInterval);
+                    clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
+                } else {
+                    clearInterval.setTextColor(red);
+                    println(clear_inter, clearInterval);
+                    clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+                }
+
+                if (death_inter == 0) {
+                    deathInterval.setTextColor(red);
+                    println(death_inter, deathInterval);
+                } else if (death_inter > 0) {
+                    deathInterval.setTextColor(red);
+                    println(death_inter, deathInterval);
+                    deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DTO> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("에러 발생", t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
+
+    /*--------volley 이용한 통신 부분----------*/
+    /*public void sendRequest() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar calendar = Calendar.getInstance(); // 오늘날짜
         String today = sdf.format(calendar.getTime());
@@ -117,19 +204,19 @@ public class MainActivity extends AppCompatActivity {
         XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
         Gson gson = new Gson();
         CovidResponse covidList = gson.fromJson(xmlToJson.toJson().toString(), CovidResponse.class);
-        Item today = covidList.response.body.items.item.get(0);
-        Item yesterday = covidList.response.body.items.item.get(1);
+        Item today = covidList.getResponse().getBody().getItems().getItem().get(0);
+        Item yesterday = covidList.getResponse().getBody().getItems().getItem().get(1);
 
-        println(today.decideCnt, decideView);
-        println(today.examCnt, examView);
-        println(today.clearCnt, clearView);
-        println(today.deathCnt, deathView);
-        println("기준일 : "+today.stateDt, dateView);
+        println(today.getDecideCnt(),decideView);
+        println(today.getExamCnt(), examView);
+        println(today.getClearCnt(), clearView);
+        println(today.getDeathCnt(), deathView);
+        println("기준일 : "+today.getStateDt(), dateView);
 
-        int dec_inter = Integer.parseInt(today.decideCnt)-Integer.parseInt(yesterday.decideCnt);
-        int exam_inter = Integer.parseInt(today.examCnt)-Integer.parseInt(yesterday.examCnt);
-        int clear_inter = Integer.parseInt(today.clearCnt)-Integer.parseInt(yesterday.clearCnt);
-        int death_inter = Integer.parseInt(today.deathCnt)-Integer.parseInt(yesterday.deathCnt);
+        int dec_inter = Integer.parseInt(today.getDecideCnt())-Integer.parseInt(yesterday.getDecideCnt());
+        int exam_inter = Integer.parseInt(today.getExamCnt())-Integer.parseInt(yesterday.getExamCnt());
+        int clear_inter = Integer.parseInt(today.getClearCnt())-Integer.parseInt(yesterday.getClearCnt());
+        int death_inter = Integer.parseInt(today.getDeathCnt())-Integer.parseInt(yesterday.getDeathCnt());
 
         int blue = ContextCompat.getColor(getApplicationContext(), R.color.blue);
         int red = ContextCompat.getColor(getApplicationContext(), R.color.red);
@@ -180,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
             println(death_inter, deathInterval);
             deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
         }
-    }
+    }*/
 
     public void println(Object data, TextView textView) {
         textView.setText(data.toString());
