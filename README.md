@@ -17,6 +17,9 @@
 
 ![위젯](https://user-images.githubusercontent.com/44769544/116810446-ce483600-ab7e-11eb-8ae6-628eda43abaa.png)
 
+## 2021-05-02
+
+- Retrofit 통신 추가
 
 ### 추가할 기능
 
