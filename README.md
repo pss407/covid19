@@ -21,7 +21,15 @@
 
 - Retrofit 통신 추가
 
+## 2021-07-12
+
+- UI 개선(천단위 콤마 추가, 색상 변경, 글씨 스타일 변경, 앱 위젯 상승/하락 표시추가 등)
+
+![메인](https://user-images.githubusercontent.com/44769544/125273541-fce54880-e347-11eb-9eea-5a28c0b2ee98.png)
+
+![위젯](https://user-images.githubusercontent.com/44769544/125273587-0bcbfb00-e348-11eb-9fca-4b650648471b.png)
+
 ### 추가할 기능
 
-- 위젯 다듬기 (위젯에서 증/감 표시 사라짐)
+- ~~위젯 다듬기(위젯에서 증/감 표시 사라짐)~~
 - SQLite나 다른 DB를 이용해서 추가 기능
