@@ -9,7 +9,5 @@ import retrofit2.http.QueryMap;
 
 public interface ServiceAPI {
     @GET("openapi/service/rest/Covid19/getCovid19InfStateJson")
-    Call<DTO> response(
-            @QueryMap HashMap<String, String> query
-            );
+    Call<DTO> response(@QueryMap HashMap<String, String> query);
 }

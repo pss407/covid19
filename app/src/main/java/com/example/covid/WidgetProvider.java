@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -100,67 +101,26 @@ public class WidgetProvider extends AppWidgetProvider {
         CovidResponse covidList = gson.fromJson(xmlToJson.toJson().toString(), CovidResponse.class);
         Item today = covidList.getResponse().getBody().getItems().getItem().get(0);
         Item yesterday = covidList.getResponse().getBody().getItems().getItem().get(1);
+        DecimalFormat format = new DecimalFormat("###,###");     //천단위 콤마
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        views.setTextViewText(R.id.widget1_1, today.getDecideCnt());
-        /*
-        println(today.examCnt, examView);
-        println(today.clearCnt, clearView);
-        println(today.deathCnt, deathView);
-        println("기준일 : "+today.stateDt, dateView);*/
+        views.setTextViewText(R.id.widget1_1, format.format(today.getDecideCnt()));
 
-        int dec_inter = Integer.parseInt(today.getDecideCnt())-Integer.parseInt(yesterday.getDecideCnt());
-        int exam_inter = Integer.parseInt(today.getExamCnt())-Integer.parseInt(yesterday.getExamCnt());
-        int clear_inter = Integer.parseInt(today.getClearCnt())-Integer.parseInt(yesterday.getClearCnt());
-        int death_inter = Integer.parseInt(today.getDeathCnt())-Integer.parseInt(yesterday.getDeathCnt());
-
+        int dec_inter = today.getDecideCnt() - yesterday.getDecideCnt();
         int blue = ContextCompat.getColor(context.getApplicationContext(), R.color.blue);
         int red = ContextCompat.getColor(context.getApplicationContext(), R.color.red);
 
         if(dec_inter<0) {
             views.setTextColor(R.id.widget1_2, blue);
-            views.setTextViewText(R.id.widget1_2, ""+(-dec_inter));
+            views.setTextViewText(R.id.widget1_2, ""+format.format(-dec_inter));
+            views.setTextViewCompoundDrawables(R.id.widget1_2, 0, 0, R.drawable.down, 0);
         }
 
         else {
             views.setTextColor(R.id.widget1_2, red);
-            views.setTextViewText(R.id.widget1_2, Integer.toString(dec_inter));
+            views.setTextViewText(R.id.widget1_2, format.format(dec_inter));
+            views.setTextViewCompoundDrawables(R.id.widget1_2, 0, 0, R.drawable.up, 0);
         }
-
-        /*if(exam_inter<0) {
-            examInterval.setTextColor(blue);
-            println(-exam_inter, examInterval);
-            examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
-        }
-
-        else {
-            examInterval.setTextColor(red);
-            println(exam_inter, examInterval);
-            examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
-        }
-
-        if(clear_inter<0) {
-            clearInterval.setTextColor(blue);
-            println(-clear_inter, clearInterval);
-            clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
-        }
-
-        else {
-            clearInterval.setTextColor(red);
-            println(clear_inter, clearInterval);
-            clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
-        }
-
-        if(death_inter==0) {
-            deathInterval.setTextColor(red);
-            println(death_inter, deathInterval);
-        }
-
-        else if(death_inter>0) {
-            deathInterval.setTextColor(red);
-            println(death_inter, deathInterval);
-            deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
-        }*/
 
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, views);
     }

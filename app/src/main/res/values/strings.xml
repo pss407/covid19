@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Covid</string>
+    <string name="price_format">%,2d</string>
 </resources>

@@ -7,7 +7,7 @@
     android:initialLayout="@layout/widget"
     android:initialKeyguardLayout="@layout/widget"
 
-    android:resizeMode="horizontal|vertical"
+    android:resizeMode="none"
     android:widgetCategory="home_screen"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">

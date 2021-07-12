@@ -42,31 +42,31 @@ public class DTO {
         public String accDefRate;
 
         @Element(name = "accExamCnt", required = false)
-        public String accExamCnt;
+        public int accExamCnt;
 
         @Element(name = "accExamCompCnt", required = false)
-        public String accExamCompCnt;
+        public int accExamCompCnt;
 
         @Element(name = "careCnt", required = false)
         public String careCnt;
 
         @Element(name = "clearCnt", required = false)
-        public String clearCnt;
+        public int clearCnt;
 
         @Element(name = "createDt", required = false)
         public String createDt;
 
         @Element(name = "deathCnt", required = false)
-        public String deathCnt;
+        public int deathCnt;
 
         @Element(name = "decideCnt", required = false)
-        public String decideCnt;
+        public int decideCnt;
 
         @Element(name = "examCnt", required = false)
-        public String examCnt;
+        public int examCnt;
 
         @Element(name = "resutlNegCnt", required = false)
-        public String resutlNegCnt;
+        public int resutlNegCnt;
 
         @Element(name = "seq", required = false)
         public String seq;

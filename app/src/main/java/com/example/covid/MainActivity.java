@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -99,59 +100,59 @@ public class MainActivity extends AppCompatActivity {
                 DTO res = response.body();
                 DTO.Item today = res.body.items.get(0);
                 DTO.Item yesterday = res.body.items.get(1);
+                DecimalFormat format = new DecimalFormat("###,###");     //천단위 콤마
 
-                println(today.decideCnt, decideView);
-                println(today.examCnt, examView);
-                println(today.clearCnt, clearView);
-                println(today.deathCnt, deathView);
+                println(format.format(today.decideCnt), decideView);
+                println(format.format(today.examCnt), examView);
+                println(format.format(today.clearCnt), clearView);
+                println(format.format(today.deathCnt), deathView);
                 println("기준일 : " + today.stateDt, dateView);
 
-                int dec_inter = Integer.parseInt(today.decideCnt) - Integer.parseInt(yesterday.decideCnt);
-                int exam_inter = Integer.parseInt(today.examCnt) - Integer.parseInt(yesterday.examCnt);
-                int clear_inter = Integer.parseInt(today.clearCnt) - Integer.parseInt(yesterday.clearCnt);
-                int death_inter = Integer.parseInt(today.deathCnt) - Integer.parseInt(yesterday.deathCnt);
+                int dec_inter = today.decideCnt - yesterday.decideCnt;
+                int exam_inter = today.examCnt - yesterday.examCnt;
+                int clear_inter = today.clearCnt - yesterday.clearCnt;
+                int death_inter = today.deathCnt - yesterday.deathCnt;
 
                 int blue = ContextCompat.getColor(getApplicationContext(), R.color.blue);
                 int red = ContextCompat.getColor(getApplicationContext(), R.color.red);
 
                 if (dec_inter < 0) {
                     decideInterval.setTextColor(blue);
-                    println(-dec_inter, decideInterval);
+                    println(format.format(-dec_inter), decideInterval);
                     decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
                 } else {
                     decideInterval.setTextColor(red);
-                    println(dec_inter, decideInterval);
+                    println(format.format(dec_inter), decideInterval);
                     decideInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
                 }
 
                 if (exam_inter < 0) {
                     examInterval.setTextColor(blue);
-                    println(-exam_inter, examInterval);
+                    println(format.format(-exam_inter), examInterval);
                     examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
                 } else {
                     examInterval.setTextColor(red);
-                    println(exam_inter, examInterval);
+                    println(format.format(exam_inter), examInterval);
                     examInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
                 }
 
                 if (clear_inter < 0) {
                     clearInterval.setTextColor(blue);
-                    println(-clear_inter, clearInterval);
+                    println(format.format(-clear_inter), clearInterval);
                     clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.down, 0);
                 } else {
                     clearInterval.setTextColor(red);
-                    println(clear_inter, clearInterval);
+                    println(format.format(clear_inter), clearInterval);
                     clearInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
                 }
 
                 if (death_inter == 0) {
                     deathInterval.setTextColor(red);
-                    println(death_inter, deathInterval);
                 } else if (death_inter > 0) {
                     deathInterval.setTextColor(red);
-                    println(death_inter, deathInterval);
                     deathInterval.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.up, 0);
                 }
+                println(format.format(death_inter), deathInterval);
             }
 
             @Override

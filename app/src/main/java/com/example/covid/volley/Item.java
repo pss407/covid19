@@ -2,33 +2,33 @@ package com.example.covid.volley;
 
 public class Item { ;
      String accDefRate;
-     String accExamCnt;
-     String accExamCompCnt;
-     String careCnt;
-     String clearCnt;
+     int accExamCnt;
+     int accExamCompCnt;
+     int careCnt;
+     int clearCnt;
      String createDt;
-     String deathCnt;
-     String decideCnt;
-     String examCnt;
-     String resutlNegCnt;
+     int deathCnt;
+     int decideCnt;
+     int examCnt;
+     int resutlNegCnt;
      String seq;
      String stateDt;
      String stateTime;
      String updateDt;
 
-     public String getDeathCnt() {
+     public int getDeathCnt() {
           return deathCnt;
      }
 
-     public String getDecideCnt() {
+     public int getDecideCnt() {
           return decideCnt;
      }
 
-     public String getExamCnt() {
+     public int getExamCnt() {
           return examCnt;
      }
 
-     public String getClearCnt() {
+     public int getClearCnt() {
           return clearCnt;
      }
 

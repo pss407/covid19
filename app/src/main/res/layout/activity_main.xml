@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#00BFFF"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,7 +14,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp"
         android:text="코로나 현황"
-        android:textColor="#707070"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:textSize="35sp" />
 
     <TextView
@@ -22,10 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bar"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
-        android:textSize="10sp"
-        android:textColor="@color/gray" />
+        android:textSize="12sp"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/renew_btn"
@@ -56,8 +57,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="확진환자"
+                android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/decide"
@@ -65,8 +67,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/decide_interval"
@@ -74,7 +77,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:textStyle="bold"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -92,8 +96,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="검사중"
+                android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/exam"
@@ -101,8 +106,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/exam_interval"
@@ -110,7 +116,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:textStyle="bold"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -128,8 +135,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="격리해제"
+                android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/clear"
@@ -137,8 +145,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/clear_interval"
@@ -146,7 +155,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:textStyle="bold"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -164,8 +174,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="사망자"
+                android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/death"
@@ -173,8 +184,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/death_interval"
@@ -182,7 +194,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:textStyle="bold"
                 android:textSize="13sp" />
 
         </LinearLayout>
