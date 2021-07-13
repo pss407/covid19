@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00BFFF"
+    android:background="#8c9eff"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp"
         android:text="코로나 현황"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="35sp" />
 
@@ -26,7 +26,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
         android:textSize="12sp"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/renew_btn"
@@ -59,7 +59,7 @@
                 android:text="확진환자"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/decide"
@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/decide_interval"
@@ -98,7 +98,7 @@
                 android:text="검사중"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/exam"
@@ -108,7 +108,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/exam_interval"
@@ -137,7 +137,7 @@
                 android:text="격리해제"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/clear"
@@ -147,7 +147,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/clear_interval"
@@ -176,7 +176,7 @@
                 android:text="사망자"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/death"
@@ -186,7 +186,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="17sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/death_interval"
