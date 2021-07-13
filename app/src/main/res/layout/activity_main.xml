@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="80dp"
         android:text="코로나 현황"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -38,21 +38,22 @@
 
     <LinearLayout
         android:id="@+id/bar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:background="@drawable/back"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -63,7 +64,7 @@
 
             <TextView
                 android:id="@+id/decide"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -71,27 +72,33 @@
                 android:textSize="17sp"
                 android:textColor="@color/black"/>
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
             <TextView
                 android:id="@+id/decide_interval"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginStart="7dp"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="13sp" />
+                android:textSize="17sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -102,7 +109,7 @@
 
             <TextView
                 android:id="@+id/exam"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -110,27 +117,33 @@
                 android:textSize="17sp"
                 android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/exam_interval"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginStart="7dp"
-                android:textStyle="bold"
-                android:textSize="13sp" />
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/exam_interval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -141,7 +154,7 @@
 
             <TextView
                 android:id="@+id/clear"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -149,27 +162,33 @@
                 android:textSize="17sp"
                 android:textColor="@color/black" />
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
             <TextView
                 android:id="@+id/clear_interval"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginStart="7dp"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="13sp" />
+                android:textSize="17sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -180,7 +199,7 @@
 
             <TextView
                 android:id="@+id/death"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -188,15 +207,21 @@
                 android:textSize="17sp"
                 android:textColor="@color/black" />
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
             <TextView
                 android:id="@+id/death_interval"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginStart="7dp"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="13sp" />
+                android:textSize="17sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
