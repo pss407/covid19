@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     TextView clearInterval;
     TextView examInterval;
     ServiceAPI service;
-    String serviceKey = "2iybDyV/Lv6DuHv4r0r8nM/qLiPheezoPVCGS9vHYtnUB+FU4jAWK6MRC05HQSo1ac/fKCBl6hV/Z6/U7ypIjA==";
+    String serviceKey = "";//키
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
