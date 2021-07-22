@@ -1,4 +1,4 @@
-package com.example.covid.volley;
+package com.pss.covid.volley;
 
 import java.util.ArrayList;
 

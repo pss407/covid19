@@ -1,4 +1,4 @@
-package com.example.covid;
+package com.pss.covid;
 
 import android.content.Context;
 

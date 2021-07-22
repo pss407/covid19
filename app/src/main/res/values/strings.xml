@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Covid</string>
+    <string name="app_name">코로나현황</string>
     <string name="price_format">%,2d</string>
 </resources>

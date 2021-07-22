@@ -1,4 +1,4 @@
-package com.example.covid.retrofit;
+package com.pss.covid.retrofit;
 
 import org.simpleframework.xml.*;
 

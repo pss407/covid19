@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.covid">
+    package="com.pss.covid">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".MainActivity" >
+        <activity android:name="com.pss.covid.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".WidgetProvider"
+        <receiver android:name="com.pss.covid.WidgetProvider"
             android:permission="android.permission.SEND_SMS">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

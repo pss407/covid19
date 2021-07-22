@@ -1,4 +1,4 @@
-package com.example.covid;
+package com.pss.covid;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,10 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.Volley;
-import com.example.covid.retrofit.DTO;
-import com.example.covid.retrofit.RetrofitClient;
-import com.example.covid.retrofit.ServiceAPI;
-import com.example.covid.volley.AppHelper;
+import com.pss.covid.retrofit.DTO;
+import com.pss.covid.retrofit.RetrofitClient;
+import com.pss.covid.retrofit.ServiceAPI;
+import com.pss.covid.volley.AppHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

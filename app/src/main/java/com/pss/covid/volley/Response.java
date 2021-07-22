@@ -1,4 +1,4 @@
-package com.example.covid.volley;
+package com.pss.covid.volley;
 
 public class Response {
     Header header;

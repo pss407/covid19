@@ -1,4 +1,4 @@
-package com.example.covid;
+package com.pss.covid;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -16,9 +16,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.covid.volley.AppHelper;
-import com.example.covid.volley.CovidResponse;
-import com.example.covid.volley.Item;
+import com.pss.covid.volley.AppHelper;
+import com.pss.covid.volley.CovidResponse;
+import com.pss.covid.volley.Item;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;

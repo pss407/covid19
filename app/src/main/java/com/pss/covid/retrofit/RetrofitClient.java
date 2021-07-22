@@ -1,4 +1,4 @@
-package com.example.covid.retrofit;
+package com.pss.covid.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
